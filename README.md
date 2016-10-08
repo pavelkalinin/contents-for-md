@@ -1,2 +1,2 @@
-# Contents Generator for Markdown
-The little tool that generates contents for markdown file.
+# Table Of Contents Generator
+A small tool that generates a table of contents by a specific marker in the file.

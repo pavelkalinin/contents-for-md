@@ -61,10 +61,9 @@ class CommandLine {
 
 
     static void showHelp() {
-        System.out.printf("Table Of Contents Generator");
         System.out.println("Usage:");
         System.out.println("\tfile1.md file2.md ...");
-        System.out.format("\t%s\'marker-for-a-contents-entry\' (ex. %s\'##\')", OPTION_MARKER, OPTION_MARKER);
+        System.out.format("\t%s\'marker-for-a-contents-entry\' (ex. %s\'##\')\n", OPTION_MARKER, OPTION_MARKER);
     }
 
 
