@@ -51,19 +51,9 @@ public class ContentEntry {
     }
 
 
-    private static boolean isValidSymbol(char c) {
-        return (Character.isLetterOrDigit(c)) || (Character.isSpaceChar(c));
-    }
-
-
-    private static boolean isUpperCaseLatinLetter(char c) {
-        return (c >= 'A' && c <= 'Z');
-    }
-
-
     @Override
-    public String toString() {
-        return '[' + title + "](" + link + ')';
+    public int hashCode() {
+        return 31 * title.hashCode() + link.hashCode();
     }
 
 
@@ -81,7 +71,17 @@ public class ContentEntry {
 
 
     @Override
-    public int hashCode() {
-        return 31 * title.hashCode() + link.hashCode();
+    public String toString() {
+        return '[' + title + "](" + link + ')';
+    }
+
+
+    private static boolean isValidSymbol(char c) {
+        return (Character.isLetterOrDigit(c)) || (Character.isSpaceChar(c));
+    }
+
+
+    private static boolean isUpperCaseLatinLetter(char c) {
+        return (c >= 'A' && c <= 'Z');
     }
 }
