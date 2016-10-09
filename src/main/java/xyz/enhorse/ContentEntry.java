@@ -77,7 +77,7 @@ public class ContentEntry {
 
 
     private static boolean isValidSymbol(char c) {
-        return (Character.isLetterOrDigit(c)) || (Character.isSpaceChar(c));
+        return (Character.isLetterOrDigit(c)) || (Character.isSpaceChar(c)) || (c == '-');
     }
 
 
