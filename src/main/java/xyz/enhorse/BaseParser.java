@@ -26,7 +26,7 @@ public class BaseParser implements Parser {
     public boolean hasNext() {
         try {
             while (true) {
-                reader.mark(1);
+                reader.mark(Short.MAX_VALUE);
 
                 String line = reader.readLine();
 
