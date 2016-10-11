@@ -10,14 +10,7 @@ import java.io.IOException;
  *         08/10/16
  */
 public class App {
-
-    private static final String CONTENTS_FILE_PREFIX = "contents_for_";
-
-
     public static void main(String[] args) {
-        System.out.println("Table Of Contents Generator");
-        System.out.println("===========================");
-
         if (args.length == 0) {
             exit();
         }
@@ -37,17 +30,16 @@ public class App {
         for (File file : commandLine.files()) {
             PathEx input = new PathEx(file);
 
-            if (input.isExistingFile()) {
-                PathEx output = input.changeName(CONTENTS_FILE_PREFIX + input.name());
+            System.out.format("<!--Table of Contents for \'%s\'-->\n", input.filename());
 
+            if (input.isExistingFile()) {
                 try (Parser parser = new FileParser(commandLine.marker(), input.toFile());
-                     Recorder recorder = new FileRecorder(output.toFile())) {
+                     Recorder recorder = new StreamRecorder(System.out)) {
 
                     Producer producer = new Producer(parser, recorder);
                     producer.produce("+ [%s](#%s)\n");
 
-                    System.out.println("\'" + output.filename() + "\' has been successfully created.");
-
+                    System.out.println("<!--End Of TOC-->\n");
                 } catch (IOException ex) {
                     System.out.println("Error processing the file \'" + file + "\': " + ex.getMessage());
                 }
@@ -59,6 +51,8 @@ public class App {
 
 
     private static void exit() {
+        System.out.println("Table Of Contents Generator");
+        System.out.println("===========================");
         CommandLine.showHelp();
         System.exit(42);
     }
