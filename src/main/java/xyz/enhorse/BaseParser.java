@@ -14,6 +14,7 @@ public class BaseParser implements Parser {
 
     private final String marker;
     private final BufferedReader reader;
+    private String current;
 
 
     public BaseParser(final String marker, final Reader reader) {
@@ -25,21 +26,12 @@ public class BaseParser implements Parser {
     @Override
     public boolean hasNext() {
         try {
-            while (true) {
-                reader.mark(Short.MAX_VALUE);
-
-                String line = reader.readLine();
-
-                if (line == null) {
-                    break;
-                }
-
-                if (line.trim().startsWith(marker)) {
-                    reader.reset();
+            while ((current = reader.readLine()) != null) {
+                current = current.trim();
+                if (current.startsWith(marker)) {
                     return true;
                 }
             }
-
             return false;
         } catch (IOException e) {
             return false;
@@ -49,11 +41,7 @@ public class BaseParser implements Parser {
 
     @Override
     public String next() {
-        try {
-            return trimMarker(reader.readLine());
-        } catch (IOException e) {
-            return null;
-        }
+        return trimMarker(current);
     }
 
 
@@ -64,7 +52,7 @@ public class BaseParser implements Parser {
 
 
     private String trimMarker(final String string) {
-        return string.trim().substring(marker.length());
+        return string.substring(marker.length());
     }
 
 
